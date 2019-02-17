@@ -66,7 +66,7 @@ function createSpamReferrerFilters() {
     
     // Open the Referrer Spam List from github
     var response = UrlFetchApp.fetch("https://raw.githubusercontent.com/piwik/referrer-spam-blacklist/master/spammers.txt"); 
-    var referrers = response.getContentText().split("\n");//.replace(/\./g, "\\.").split("\n");
+    var referrers = response.getContentText().split("\n");
     
     var additionalSpammers = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Additional Spammers");
     
@@ -76,12 +76,14 @@ function createSpamReferrerFilters() {
     
     // Loop through Sheet
     for(var i=1; i <= numRows; i++){
-      referrers.push(additionalSpammers.getRange(i, 1).getValue());//.replace(/\./g, "\\."));
+      referrers.push(additionalSpammers.getRange(i, 1).getValue());
     }
     
     var expressionValue = "";
     var filterNumber = 1;
     
+    var outputSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(site + " - Referrer Spam Output");
+  
     // Loop through referrers and create filters
     for(var i=0; i < referrers.length; i++){
       
@@ -93,7 +95,9 @@ function createSpamReferrerFilters() {
           // Expression can't exceed 255 chars so if we've hit that create a filter with what we have so far and move on.
           if ((expressionValue + "|" + referrers[i]).length > 255) {
             
-            var filter = createFilter(site, filterNumber, accountId, propertyId, viewId, expressionValue);
+            var name = "Referrer Spam " + ((filterNumber < 10) ? "0" + filterNumber : filterNumber);
+            
+            var filter = createCampaignSourceExcludeFilter(site, propertyId, viewId, name, accountId, expressionValue, true, outputSheet)
             
             expressionValue = "";
             filterNumber++;
@@ -115,49 +119,9 @@ function createSpamReferrerFilters() {
     
     settings.getRange(5, 2).setValue(new Date());
     
-    SpreadsheetApp.getActive().toast("Finished!");
+    toast("Finished!");
    } catch (ex) {
     Logger.log(ex);
     throw ex;
   }
-}
-
-function createFilter(site, filterNumber, accountId, propertyId, viewId, expressionValue) {
-
-  try {
-    var outputSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(site + " - Referrer Spam Output");
-    
-    var name = "Referrer Spam " + ((filterNumber < 10) ? "0"+filterNumber : filterNumber);
-    
-    var filter = {name: name,
-                  accountId: accountId, 
-                  excludeDetails: {field: "CAMPAIGN_SOURCE", 
-                                   expressionValue: expressionValue, 
-                                   matchType: "MATCHES", 
-                                   caseSensitive: false, 
-                                   kind: "analytics#filterExpression"}, 
-                  type : "EXCLUDE", 
-                  kind: "analytics#filter"};
-    
-    filter = Analytics.Management.Filters.insert(filter, accountId);
-    
-    var link = Analytics.Management.ProfileFilterLinks.insert({filterRef: {id: filter.id}}, accountId, propertyId, viewId);
-    
-    outputSheet.getRange(filterNumber+1, 1).setValue(filter.name);
-    outputSheet.getRange(filterNumber+1, 2).setValue(filter.id);
-    outputSheet.getRange(filterNumber+1, 3).setValue(expressionValue);
-    
-    SpreadsheetApp.getActive().toast(filter.name, "Created Filter");
-    
-    Logger.log('Created filter Id: "%s". Name: "%s". Value: "%s"', filter.id, filter.name, filter.excludeDetails.expressionValue);
-    
-    return filter;
-  } catch (ex) {
-     Logger.log(ex);
-     throw ex;
-  }
-}
-
-function toast(message) {
- SpreadsheetApp.getActive().toast(message); 
 }
