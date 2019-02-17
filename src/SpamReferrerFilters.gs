@@ -1,5 +1,5 @@
 function deleteSpamReferrerFiltersForSite() {
- 
+  
   var settings = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Settings");
   var site = settings.getRange(1, 2).getValue();
   var accountId = settings.getRange(2, 2).getValue();
@@ -8,39 +8,30 @@ function deleteSpamReferrerFiltersForSite() {
   
   // Delete any old filters
   toast("Deleting existing Filters for " + site);
-  deleteSpamReferrerFilters(site);
+  deleteSpamReferrerFilters(accountId);
+  toast("Finished Deleting existing Filters for " + site);
 }
 
 
-function deleteSpamReferrerFilters(site) {
+function deleteSpamReferrerFilters(accountId) {
   
   try {
-    var settings = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Settings");
-    var accountId = settings.getRange(2, 2).getValue();
-
-    var outputSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(site + " - Referrer Spam Output");
-  
-    // Get the data from the sheet
-    var numRows = outputSheet.getDataRange().getNumRows();
-    var dataValues = outputSheet.getDataRange().getValues();
     
-    // Loop through Sheet
-    for(var i=1; i < numRows; i++){
+    var existingFilters = getMatchingFilters(accountId, "Referrer Spam");
+    
+    for(var i=0; i < existingFilters.length; i++){
       
-      var filterId = dataValues[i][1];
-      if (filterId != null) {
-        toast("accountId: " + accountId + " filterId: " + filterId);
-        
-        Analytics.Management.Filters.remove(accountId, filterId);
-        
-        toast("Removed");
-        
-        Logger.log('Deleted filter Id: "%s". Name: "%s".', filterId.id, dataValues[i][0]);
-        
-        outputSheet.getRange(i+1, 1).setValue("");
-        outputSheet.getRange(i+1, 2).setValue("");
-        outputSheet.getRange(i+1, 3).setValue("");
-      }
+      var filter = existingFilters[i]
+      
+      Analytics.Management.Filters.remove(accountId, filter.id);
+      
+      toast("Removed Filter " + filter.name + " accountId: " + accountId + " filterId: " + filter.id);
+            
+      Logger.log('Deleted filter Id: "%s". Name: "%s".', filter.id, filter.name);       
+      
+      // Quick sleep to get around quota for writes / sec
+      Utilities.sleep(1000);
+      
     }  
   } catch (ex) {
     Logger.log(ex);
@@ -60,7 +51,7 @@ function createSpamReferrerFilters() {
     
     // Delete any old filters
     toast("Deleting existing Filters for " + site);
-    deleteSpamReferrerFilters(site);
+    deleteSpamReferrerFilters(accountId);
     
     toast("Creating Filters for " + site);
     
@@ -82,8 +73,6 @@ function createSpamReferrerFilters() {
     var expressionValue = "";
     var filterNumber = 1;
     
-    var outputSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(site + " - Referrer Spam Output");
-  
     // Loop through referrers and create filters
     for(var i=0; i < referrers.length; i++){
       
@@ -97,7 +86,7 @@ function createSpamReferrerFilters() {
             
             var name = "Referrer Spam " + ((filterNumber < 10) ? "0" + filterNumber : filterNumber);
             
-            var filter = createCampaignSourceExcludeFilter(site, propertyId, viewId, name, accountId, expressionValue, true, outputSheet)
+            var filter = createCampaignSourceExcludeFilter(site, propertyId, viewId, name, accountId, expressionValue)
             
             expressionValue = "";
             filterNumber++;
@@ -119,9 +108,10 @@ function createSpamReferrerFilters() {
     
     settings.getRange(5, 2).setValue(new Date());
     
-    toast("Finished!");
-   } catch (ex) {
+    SpreadsheetApp.getActive().toast("Finished!");
+  } catch (ex) {
     Logger.log(ex);
     throw ex;
   }
 }
+
