@@ -21,6 +21,9 @@ function onOpen() {
 }
 
 function toast(message, title) {
-  SpreadsheetApp.getActive().toast(message, title); 
+  if (title != undefined)
+    SpreadsheetApp.getActive().toast(message, title);
+  else
+    SpreadsheetApp.getActive().toast(message);
 }
 
