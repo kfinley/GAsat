@@ -2,7 +2,7 @@
 
 Here you will find an App Scripts project for managing Google Analytics from Google Sheets.
 
-## How does it work?
+## How to use it
 1. Create a Google Sheet
 
 2. Add tabs
