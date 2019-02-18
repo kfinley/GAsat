@@ -10,7 +10,7 @@ Here you will find an App Scripts project for managing Google Analytics from Goo
     - Addtional Spammers
 
     Add the follwing to the Settings sheet. 
-    Label in Column A with the associated values in Column B
+    Labels starting in Column A, Row 2 with the associated values in Column B
 
     Google Account ID
 
