@@ -83,4 +83,3 @@ function getMatchingFilters(accountId, name) {
   return matches;
 }
 
-

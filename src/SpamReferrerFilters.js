@@ -114,4 +114,3 @@ function createSpamReferrerFilters() {
     throw ex;
   }
 }
-

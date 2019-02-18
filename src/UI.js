@@ -26,4 +26,3 @@ function toast(message, title) {
   else
     SpreadsheetApp.getActive().toast(message);
 }
-
