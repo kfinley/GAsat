@@ -7,9 +7,9 @@ function deleteSpamReferrerFiltersForSite() {
   var viewId = settings.getRange(4, 2).getValue();
   
   // Delete any old filters
-  toast("Deleting existing Filters for " + site);
+  toast("Site: " + site, "Deleting Existing Filters");
   deleteSpamReferrerFilters(accountId);
-  toast("Finished Deleting existing Filters for " + site);
+  toast("Site: " + site, "Finished Deleting Existing Filters");
 }
 
 
@@ -25,7 +25,7 @@ function deleteSpamReferrerFilters(accountId) {
       
       Analytics.Management.Filters.remove(accountId, filter.id);
       
-      toast("Removed Filter " + filter.name + " accountId: " + accountId + " filterId: " + filter.id);
+      toast(filter.name, "Removed Filter");
             
       Logger.log('Deleted filter Id: "%s". Name: "%s".', filter.id, filter.name);       
       
@@ -50,10 +50,10 @@ function createSpamReferrerFilters() {
     var viewId = settings.getRange(4, 2).getValue();
     
     // Delete any old filters
-    toast("Deleting existing Filters for " + site);
+    toast("Site: " + site, "Deleting Existing Filters");
     deleteSpamReferrerFilters(accountId);
     
-    toast("Creating Filters for " + site);
+    toast("Site: " + site, "Creating Filters");
     
     // Open the Referrer Spam List from github
     var response = UrlFetchApp.fetch("https://raw.githubusercontent.com/piwik/referrer-spam-blacklist/master/spammers.txt"); 
@@ -103,14 +103,14 @@ function createSpamReferrerFilters() {
     
     // Write the last expression if there is one. Probably always will be but still good to check.
     if (expressionValue.length > 1) {
-      var filter = createFilter(site, filterNumber, accountId, propertyId, viewId, expressionValue);
+      var filter = createCampaignSourceExcludeFilter(site, propertyId, viewId, name, accountId, expressionValue);
     }
     
     settings.getRange(5, 2).setValue(new Date());
     
-    SpreadsheetApp.getActive().toast("Finished!");
+    toast("Finished!");
   } catch (ex) {
-    Logger.log(ex);
+    Logger.log(ex);    
     throw ex;
   }
 }

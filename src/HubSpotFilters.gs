@@ -6,7 +6,7 @@ function createHubSpotFilters() {
   var propertyId = settings.getRange(3, 2).getValue();
   var viewId = settings.getRange(4, 2).getValue();
   
-  toast("Creating HubSpot Filters for " + site);
+  toast("site: " + site, "Creating HubSpot Filters");
 
   var name = "HubSpot ISP Filter";
   
@@ -14,7 +14,7 @@ function createHubSpotFilters() {
     
     var filter = createIspOrganizationExcludeFilter(site, propertyId, viewId, name, accountId, "HubSpot");
     
-    toast("Created " + name);
+    toast(name, "Created");
  
   }
   

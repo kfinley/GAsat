@@ -1,7 +1,7 @@
 // https://developers.google.com/analytics/devguides/config/mgmt/v3/mgmtReference/management/filters
 
 function createCampaignSourceExcludeFilter(site, propertyId, viewId, name, accountId, expressionValue) {
-
+  
   try {
     
     var filter = {name: name,
@@ -15,18 +15,18 @@ function createCampaignSourceExcludeFilter(site, propertyId, viewId, name, accou
                   kind: "analytics#filter"};
     
     return createFilter(accountId, propertyId, viewId, filter);
-
+    
   } catch (ex) {
-     Logger.log(ex);
-     throw ex;
+    Logger.log(ex);
+    throw ex;
   }
 }
 
 function createIspOrganizationExcludeFilter(site, propertyId, viewId, name, accountId, expressionValue) {
-
-    try {
-
-         var filter = {name: name,
+  
+  try {
+    
+    var filter = {name: name,
                   accountId: accountId, 
                   excludeDetails: {field: "GEO_ORGANIZATION", 
                                    expressionValue: expressionValue, 
@@ -35,17 +35,18 @@ function createIspOrganizationExcludeFilter(site, propertyId, viewId, name, acco
                                    kind: "analytics#filterExpression"}, 
                   type : "EXCLUDE", 
                   kind: "analytics#filter"};
-        
-        return createFilter(accountId, propertyId, viewId, filter);
-
-    } catch (ex) {
-        Logger.log(ex);
-        throw ex;
-    }
+    
+    return createFilter(accountId, propertyId, viewId, filter);
+    
+  } catch (ex) {
+    Logger.log(ex);
+    throw ex;
+  }
 }
 
 function createFilter(accountId, propertyId, viewId, filter) {
-
+  
+  try {
     filter = Analytics.Management.Filters.insert(filter, accountId);
     
     var link = Analytics.Management.ProfileFilterLinks.insert({filterRef: {id: filter.id}}, accountId, propertyId, viewId);
@@ -55,6 +56,10 @@ function createFilter(accountId, propertyId, viewId, filter) {
     Logger.log('Created filter Id: "%s". Name: "%s". Value: "%s"', filter.id, filter.name, filter.excludeDetails.expressionValue);
     
     return filter;
+  } catch (ex) {
+    Logger.log(filter);
+    throw ex;
+  }
 }
 
 function filterExists(accountId, name) {
@@ -74,7 +79,7 @@ function filterExists(accountId, name) {
 }
 
 function getMatchingFilters(accountId, name) {
- 
+  
   var matches = [];
   
   var results = Analytics.Management.Filters.list(accountId);
