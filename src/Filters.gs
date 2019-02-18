@@ -2,30 +2,21 @@
 
 function createCampaignSourceExcludeFilter(site, propertyId, viewId, name, accountId, expressionValue) {
   
-  try {
-    
     var filter = {name: name,
-                  accountId: accountId, 
-                  excludeDetails: {field: "CAMPAIGN_SOURCE", 
-                                   expressionValue: expressionValue, 
-                                   matchType: "MATCHES", 
-                                   caseSensitive: false, 
-                                   kind: "analytics#filterExpression"}, 
-                  type : "EXCLUDE", 
-                  kind: "analytics#filter"};
-    
+                    accountId: accountId, 
+                    excludeDetails: {field: "CAMPAIGN_SOURCE", 
+                                    expressionValue: expressionValue, 
+                                    matchType: "MATCHES", 
+                                    caseSensitive: false, 
+                                    kind: "analytics#filterExpression"}, 
+                    type : "EXCLUDE", 
+                    kind: "analytics#filter"};
+
     return createFilter(accountId, propertyId, viewId, filter);
-    
-  } catch (ex) {
-    Logger.log(ex);
-    throw ex;
-  }
 }
 
 function createIspOrganizationExcludeFilter(site, propertyId, viewId, name, accountId, expressionValue) {
   
-  try {
-    
     var filter = {name: name,
                   accountId: accountId, 
                   excludeDetails: {field: "GEO_ORGANIZATION", 
@@ -37,11 +28,6 @@ function createIspOrganizationExcludeFilter(site, propertyId, viewId, name, acco
                   kind: "analytics#filter"};
     
     return createFilter(accountId, propertyId, viewId, filter);
-    
-  } catch (ex) {
-    Logger.log(ex);
-    throw ex;
-  }
 }
 
 function createFilter(accountId, propertyId, viewId, filter) {
