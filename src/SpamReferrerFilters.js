@@ -6,7 +6,7 @@ function deleteSpamReferrerFilters() {
   
   // Delete any old filters
   toast("Site: " + site, "Deleting Existing Filters");
-  deleteFilters(accountId);
+  deleteFilters(accountId, "Referrer Spam");
   toast("Site: " + site, "Finished Deleting Existing Filters");
 }
 
