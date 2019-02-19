@@ -12,10 +12,8 @@ function createHubSpotFilters() {
   
   if (filterExists(accountId, name) == false ) {
     
-    var filter = createIspOrganizationExcludeFilter(site, propertyId, viewId, name, accountId, "HubSpot");
+    var filter = createIspOrganizationExcludeFilter(propertyId, viewId, name, accountId, "HubSpot");
     
-    toast(name, "Created");
- 
   }
   
   toast("Finished!");

@@ -3,20 +3,27 @@ function onOpen() {
   
   var ui = SpreadsheetApp.getUi();
   
-  var hubSpotMenu = ui.createMenu("HubSpot");
-  hubSpotMenu
+  var hubSpotFiltersMenu = ui.createMenu("HubSpot");
+  hubSpotFiltersMenu
   .addItem("Create Filters", "createHubSpotFilters");
   
-  var spamFiltersMenu = ui.createMenu("Spam Filters");
+  var spamFiltersMenu = ui.createMenu("Spam Referrer Filters");
   spamFiltersMenu
-  .addItem("Set Spam Referrer Filters", "createSpamReferrerFilters")
-  .addItem("Delete Spam Referrer Filters", "deleteSpamReferrerFiltersForSite")
+  .addItem("Create Filters", "createSpamReferrerFilters")
+  .addItem("Delete Filters", "deleteSpamReferrerFilters")
   
+  var internalIpFiltersMenu = ui.createMenu("Internal IP Filters");
+  internalIpFiltersMenu
+  .addItem("Create Filters", "createInternalIpAddressFilters");
+
   var menu = ui.createMenu("Google Analytics");
   
   menu
+  .addItem("Setup Sheets", "setupSheet")
+  .addSeparator()
+  .addSubMenu(internalIpFiltersMenu)
   .addSubMenu(spamFiltersMenu)
-  .addSubMenu(hubSpotMenu)
+  .addSubMenu(hubSpotFiltersMenu)
   .addToUi();
 }
 
