@@ -105,7 +105,7 @@ function createFiltersForList(list, name, propertyId, viewId, accountId, create)
   var expressionValue = "";
   var filterNumber = 1;
 
-  // Loop through referrers and create filters
+  // Loop through list and create filters
   for (var i = 0; i < list.length; i++) {
 
     if (list[i].length > 0) {
@@ -133,7 +133,7 @@ function createFiltersForList(list, name, propertyId, viewId, accountId, create)
     }
   }
 
-  // Write the last expression if there is one. Probably always will be but still good to check.
+  // Write the last expression if there is one.
   if (expressionValue.length > 1) {
     var filter = create(propertyId, viewId, name, accountId, expressionValue);
   }
