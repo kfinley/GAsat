@@ -23,7 +23,7 @@ class SpamReferrerFilters {
       toast("Site: " + this.settings.Site, "Creating Spam Filters");
 
       // Open the Referrer Spam List from github
-      var response = UrlFetchApp.fetch("https://raw.githubusercontent.com/piwik/referrer-spam-blacklist/master/spammers.txt");
+      var response = UrlFetchApp.fetch("https://raw.githubusercontent.com/matomo-org/referrer-spam-blacklist/master/spammers.txt");
       var referrers = response.getContentText().split("\n");
 
       // Get the data from the sheet

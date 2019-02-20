@@ -4,16 +4,16 @@
 [![clasp](https://img.shields.io/badge/built%20with-clasp-4285f4.svg)](https://github.com/google/clasp)
 
 
-Manage Google Analytics from Google Sheets using App Scripts. 
+Manage Google Analytics from Google Sheets using App Scripts. This is a work in progress. The current focus is on adding standard Best Practices filters.
 
 ## How to use
-1. Install Clasp (https://github.com/google/clasp)
+1. Install [Clasp](https://github.com/google/clasp)
 
 2. Create a Google Sheet to deploy script to
 
-3. Enable Apps Script API: https://script.google.com/home/usersettings
+3. [Enable](https://script.google.com/home/usersettings) Apps Script API 
 
-4. Add .clasp.json file to the src folder
+4. Add `.clasp.json` file to the `src` folder
 
     File format:
     ```
@@ -23,12 +23,17 @@ Manage Google Analytics from Google Sheets using App Scripts.
 
 5. Run `clasp login` from the src folder
 
-6. Run `clasp push` from the src folder to deploy code to Sheets.
+6. Run `clasp push` from the src folder to deploy code to Sheets
 
-7. Refresh (or open) the Sheet created in step 2.
+7. Refresh (or open) the Sheet created in step 2
 
-8. Run `Setup Sheets` from new Google Analytics menu that appears after Sheets loads.
+8. Run `Setup Sheets` from new Google Analytics menu that appears after Sheets loads
 
-9. Add settings to the new Settings sheet that is added.
+9. Add target Google Analytics settings to the Settings sheet
 
-10. Run commands from Google Analytics menu.
+10. Run commands from `Google Analytics` menu
+
+## Curent Commands
+- Filter Internal IP Addresses
+- Filter HubSpot by ISP Organization
+- Filter Referral Spam - (Using the [Matomo blacklist](https://github.com/matomo-org/referrer-spam-blacklist) and an additional customer list)
