@@ -1,5 +1,8 @@
 # Google Analytics Admin Tool
+
+[![TypeScript](https://badges.frapsoft.com/typescript/code/typescript.svg)](https://github.com/ellerbrock/typescript-badges/)
 [![clasp](https://img.shields.io/badge/built%20with-clasp-4285f4.svg)](https://github.com/google/clasp)
+
 
 Manage Google Analytics from Google Sheets using App Scripts. 
 

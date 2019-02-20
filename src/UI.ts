@@ -1,5 +1,3 @@
-const Analytics = this.Analytics;
-
 function onOpen() {
 
   var ui = SpreadsheetApp.getUi();
