@@ -139,17 +139,17 @@ function createFiltersForList(list, name, propertyId, viewId, accountId, create)
   }
 }
 
-function filterExists(accountId, name) {
+function getFilter(accountId, name) {
   var results = Analytics.Management.Filters.list(accountId);
 
   if (results && !results.error) {
 
     for (var i = 0, filter; filter = results.items[i]; i++) {
       if (filter.name == name) {
-        return true;
+        return filter;
       }
     }
-    return false;
+    return null;
   } else {
     throw results.error;
   }
@@ -160,7 +160,7 @@ function getMatchingFilters(accountId, name) {
   var matches = [];
 
   var results = Analytics.Management.Filters.list(accountId);
-
+  
   if (results && !results.error) {
 
     for (var i = 0, filter; filter = results.items[i]; i++) {
