@@ -116,9 +116,9 @@ function createFiltersForList(list, name, propertyId, viewId, accountId, create)
         // Expression can't exceed 255 chars so if we've hit that create a filter with what we have so far and move on.
         if ((expressionValue + "|" + list[i]).length > 255) {
 
-          name = name + " " + ((filterNumber < 10) ? "0" + filterNumber : filterNumber);
+          var filterName = name + " " + ((filterNumber < 10) ? "0" + filterNumber : filterNumber);
 
-          var filter = create(propertyId, viewId, name, accountId, expressionValue)
+          var filter = create(propertyId, viewId, filterName, accountId, expressionValue)
 
           expressionValue = "";
           filterNumber++;
