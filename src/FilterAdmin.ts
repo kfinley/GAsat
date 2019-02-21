@@ -132,7 +132,7 @@ class FilterAdmin {
           // Expression can't exceed 255 chars so if we've hit that create a filter with what we have so far and move on.
           if ((expressionValue + "|" + list[i]).length > 255) {
 
-            var filter = create(filterName, expressionValue)
+            var filter = this.create(filterName, expressionValue, create);
 
             expressionValue = "";
             filterNumber++;
@@ -150,7 +150,24 @@ class FilterAdmin {
 
     // Write the last expression if there is one.
     if (expressionValue.length > 1) {
-      var filter = create(name, expressionValue);
+      var filter = this.create(filterName, expressionValue, create);
+    }
+  }
+
+  private create(filterName: string, expressionValue: any, create) {
+
+    switch (create) {
+      case this.createCampaignSourceExcludeFilter:
+        this.createCampaignSourceExcludeFilter(filterName, expressionValue);
+        break;
+      case this.createIpAddressExcludeFilter:
+        this.createIpAddressExcludeFilter(filterName, expressionValue);
+        break;
+      case this.createIspOrganizationExcludeFilter:
+        this.createIspOrganizationExcludeFilter(filterName, expressionValue);
+        break;
+      default:
+        throw "Unknown FilterAdmin function name: " + create;
     }
   }
 
