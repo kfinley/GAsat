@@ -1,14 +1,11 @@
-class IpAddressFilters {
-    private settings: Settings;
+class IpAddress {
 
-    constructor(settings: Settings) {
-        this.settings = settings;
-    }
+    public Filters: FilterAdmin;
 
     public CreateFilters() {
 
         // Delete any old filters
-        deleteFilters(this.settings.AccountId, "Internal IP Addresses");
+        this.Filters.deleteFilters("Internal IP Addresses");
 
         var ipList = [];
 
@@ -22,7 +19,7 @@ class IpAddressFilters {
             ipList.push(ipAddresses.getRange(i, 1).getValue());
         }
 
-        createFiltersForList(ipList, "Internal IP Addresses", this.settings.PropertyId, this.settings.ViewId, this.settings.AccountId, createIpAddressExcludeFilter);
+        this.Filters.createFiltersForList(ipList, "Internal IP Addresses", this.Filters.createIpAddressExcludeFilter);
 
         toast("Finished!", "Internal IP Address Filters");
     } catch(ex) {

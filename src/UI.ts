@@ -3,12 +3,12 @@ function onOpen() {
   var ui = SpreadsheetApp.getUi();
   var hubSpotFiltersMenu = ui.createMenu("HubSpot");
   hubSpotFiltersMenu
-    .addItem("Create Filters", "HubSpotFiltersCreateFilters");
+    .addItem("Create Filters", "hubSpotFiltersCreateFilters");
 
-  var spamFiltersMenu = ui.createMenu("Spam Referrer Filters");
+  var spamFiltersMenu = ui.createMenu("Referrer Spam Filters");
   spamFiltersMenu
-    .addItem("Create Filters", "SpamReferrerFiltersCreateFilters")
-    .addItem("Delete Filters", "SpamReferrerFiltersDeleteFilters")
+    .addItem("Create Filters", "referrerSpamFiltersCreateFilters")
+    .addItem("Delete Filters", "referrerSpamFiltersDeleteFilters")
 
   var internalIpFiltersMenu = ui.createMenu("Internal IP Filters");
   internalIpFiltersMenu
@@ -44,18 +44,27 @@ function getSettings() {
   return settings;
 }
 
-function SpamReferrerFiltersCreateFilters() {
-  new SpamReferrerFilters(getSettings()).CreateFilters();  
+function referrerSpamFiltersCreateFilters() {
+  
+  var spam = new ReferrerSpam();
+  spam.Filters = new FilterAdmin(getSettings());
+  spam.CreateFilters();
 }
 
-function SpamReferrerFiltersDeleteFilters() {
-  new SpamReferrerFilters(getSettings()).DeleteFilters();
+function referrerSpamFiltersDeleteFilters() {
+  var spam = new ReferrerSpam();
+  spam.Filters = new FilterAdmin(getSettings());
+  spam.DeleteFilters();
 }
 
-function HubSpotFiltersCreateFilters() {
-  new HubspotFilters(getSettings()).CreateFilters();
+function hubSpotFiltersCreateFilters() {
+  var hubSpot = new Hubspot();
+  hubSpot.Filters = new FilterAdmin(getSettings());
+  hubSpot.CreateFilters();
 }
 
 function createInternalIpAddressFilters() {
-  new IpAddressFilters(getSettings()).CreateFilters();
+  var ips = new IpAddress();
+  ips.Filters = new FilterAdmin(getSettings());
+  ips.CreateFilters();
 }
