@@ -34,6 +34,10 @@ Manage Google Analytics from Google Sheets using App Scripts. This is a work in 
 10. Run commands from `Google Analytics` menu
 
 ## Curent Commands
+- Valid hostname
+- Lowercase Filter for ‘Campaign Name’, ‘Campaign Source’, ‘Campaign Medium’, ‘Campaign Term’ and ‘Campaign Content’
 - Filter Internal IP Addresses
-- Filter HubSpot by ISP Organization
 - Filter Referral Spam - (Using the [Matomo blacklist](https://github.com/matomo-org/referrer-spam-blacklist) and an additional customer list)
+- Filter HubSpot by ISP Organization
+- Filter Hubspot app and sandbox domains
+
