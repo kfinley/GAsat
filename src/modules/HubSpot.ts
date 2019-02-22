@@ -1,24 +1,24 @@
 class Hubspot {
 
-  public Filters: FilterAdmin;
+  public filters: FilterAdmin;
 
-  public CreateFilters() {
-    toast("site: " + this.Filters.Settings.Site, "Creating HubSpot Filters");
+  public createFilters() {
+    toast("site: " + this.filters.settings.Site, "Creating HubSpot Filters");
 
-    var filter = this.Filters.getFilter("HubSpot ISP Filter");
+    var filter = this.filters.getFilter("HubSpot ISP Filter");
 
     if (filter == null) {
-      filter = this.Filters.createIspOrganizationExcludeFilter("HubSpot ISP Filter", "HubSpot");
+      filter = this.filters.createIspOrganizationExcludeFilter("HubSpot ISP Filter", "HubSpot");
     } 
 
-    filter = this.Filters.getFilter("HubSpot Sources Filter");
+    filter = this.filters.getFilter("HubSpot Sources Filter");
 
     if (filter == null) {
       var sources = [];
-      sources.push("app.hubspot.com");
-      sources.push("www-bendhsa-com.sandbox.hs-sites.com");
+      sources.push("app\\.hubspot\\.com");
+      sources.push("\\.sandbox\\.hs-sites\\.com");
 
-      this.Filters.createFiltersForList(sources, "Hubspot Sources Filter", this.Filters.createCampaignSourceExcludeFilter);
+      this.filters.createFiltersForList(sources, "Hubspot Sources Filter", this.filters.createCampaignSourceExcludeFilter);
     }
 
     toast("", "Finished!");

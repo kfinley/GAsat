@@ -14,11 +14,16 @@ function onOpen() {
   internalIpFiltersMenu
     .addItem("Create Filters", "createInternalIpAddressFilters");
 
+  var validHostnameFilterMenu = ui.createMenu("Valid Hostname");
+  validHostnameFilterMenu
+    .addItem("Create Filter", "createValidHostnameFilter");
+
   var menu = ui.createMenu("Google Analytics");
 
   menu
     .addItem("Setup Sheets", "setupSheet")
     .addSeparator()
+    .addSubMenu(validHostnameFilterMenu)
     .addSubMenu(internalIpFiltersMenu)
     .addSubMenu(spamFiltersMenu)
     .addSubMenu(hubSpotFiltersMenu)
@@ -45,26 +50,33 @@ function getSettings() {
 }
 
 function referrerSpamFiltersCreateFilters() {
-  
+
   var spam = new ReferrerSpam();
-  spam.Filters = new FilterAdmin(getSettings());
-  spam.CreateFilters();
+  spam.filters = new FilterAdmin(getSettings());
+  spam.createFilters();
 }
 
 function referrerSpamFiltersDeleteFilters() {
   var spam = new ReferrerSpam();
-  spam.Filters = new FilterAdmin(getSettings());
-  spam.DeleteFilters();
+  spam.filters = new FilterAdmin(getSettings());
+  spam.deleteFilters();
 }
 
 function hubSpotFiltersCreateFilters() {
   var hubSpot = new Hubspot();
-  hubSpot.Filters = new FilterAdmin(getSettings());
-  hubSpot.CreateFilters();
+  hubSpot.filters = new FilterAdmin(getSettings());
+  hubSpot.createFilters();
 }
 
 function createInternalIpAddressFilters() {
   var ips = new IpAddress();
-  ips.Filters = new FilterAdmin(getSettings());
-  ips.CreateFilters();
+  ips.filters = new FilterAdmin(getSettings());
+  ips.createFilters();
+}
+
+function createValidHostnameFilter() {
+  var validHostname = new ValidHostname();
+  validHostname.filters = new FilterAdmin(getSettings());
+  validHostname.createFilter();
+
 }

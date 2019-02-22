@@ -1,11 +1,11 @@
 class IpAddress {
 
-    public Filters: FilterAdmin;
+    public filters: FilterAdmin;
 
-    public CreateFilters() {
+    public createFilters() {
 
         // Delete any old filters
-        this.Filters.deleteFilters("Internal IP Addresses");
+        this.filters.deleteFilters("Internal IP Addresses");
 
         var ipList = [];
 
@@ -19,7 +19,7 @@ class IpAddress {
             ipList.push(ipAddresses.getRange(i, 1).getValue());
         }
 
-        this.Filters.createFiltersForList(ipList, "Internal IP Addresses", this.Filters.createIpAddressExcludeFilter);
+        this.filters.createFiltersForList(ipList, "Internal IP Addresses", this.filters.createIpAddressExcludeFilter);
 
         toast("Finished!", "Internal IP Address Filters");
     } catch(ex) {

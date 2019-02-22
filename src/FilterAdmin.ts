@@ -1,17 +1,38 @@
 // https://developers.google.com/analytics/devguides/config/mgmt/v3/mgmtReference/management/filters
 class FilterAdmin {
-
-  public Settings: Settings;
+  
+  public settings: Settings;
 
   constructor(settings: Settings) {
-    this.Settings = settings;
+    this.settings = settings;
   }
 
-  public createCampaignSourceExcludeFilter(name: any, expressionValue: any) {
+  public createValidHostnameFilter(name: string) {
+
+    var site = this.settings.Site.toLowerCase().replace(".", "\\.");
 
     var filter = {
       name: name,
-      accountId: this.Settings.AccountId,
+      accountId: this.settings.AccountId,
+      includeDetails: {
+        field: "PAGE_HOSTNAME",
+        expressionValue: site,
+        matchType: "MATCHES",
+        caseSensitive: false,
+        kind: "analytics#filterExpression"
+      },
+      type: "INCLUDE",
+      kind: "analytics#filter"
+    }
+
+    return this.createFilter(filter);
+  }
+
+  public createCampaignSourceExcludeFilter(name: string, expressionValue: string) {
+
+    var filter = {
+      name: name,
+      accountId: this.settings.AccountId,
       excludeDetails: {
         field: "CAMPAIGN_SOURCE",
         expressionValue: expressionValue,
@@ -30,7 +51,7 @@ class FilterAdmin {
 
     var filter = {
       name: name,
-      accountId: this.Settings.AccountId,
+      accountId: this.settings.AccountId,
       excludeDetails: {
         field: "GEO_ORGANIZATION",
         expressionValue: expressionValue,
@@ -45,11 +66,11 @@ class FilterAdmin {
     return this.createFilter(filter);
   }
 
-  public createIpAddressExcludeFilter(name: any, expressionValue: any) {
+  public createIpAddressExcludeFilter(name: string, expressionValue: string) {
 
     var filter = {
       name: name,
-      accountId: this.Settings.AccountId,
+      accountId: this.settings.AccountId,
       excludeDetails: {
         field: "GEO_IP_ADDRESS",
         expressionValue: expressionValue,
@@ -67,17 +88,17 @@ class FilterAdmin {
   public createFilter(filter: any) {
 
     try {
-      filter = Analytics.Management.Filters.insert(filter, this.Settings.AccountId);
+      filter = Analytics.Management.Filters.insert(filter, this.settings.AccountId);
 
       var link = Analytics.Management.ProfileFilterLinks.insert({
         filterRef: {
           id: filter.id
         }
-      }, this.Settings.AccountId, this.Settings.PropertyId, this.Settings.ViewId);
+      }, this.settings.AccountId, this.settings.PropertyId, this.settings.ViewId);
 
       toast(filter.name, "Created Filter");
 
-      Logger.log('Created filter Id: "%s". Name: "%s". Value: "%s"', filter.id, filter.name, filter.excludeDetails.expressionValue);
+      Logger.log('Created filter: "%s"', filter);
 
       return filter;
     } catch (ex) {
@@ -96,7 +117,7 @@ class FilterAdmin {
 
         var filter = existingFilters[i]
 
-        Analytics.Management.Filters.remove(this.Settings.AccountId, filter.id);
+        Analytics.Management.Filters.remove(this.settings.AccountId, filter.id);
 
         toast(filter.name, "Removed Filter");
 
@@ -154,7 +175,7 @@ class FilterAdmin {
     }
   }
 
-  private create(filterName: string, expressionValue: any, create) {
+  private create(filterName: string, expressionValue: any, create: any) {
 
     switch (create) {
       case this.createCampaignSourceExcludeFilter:
@@ -172,7 +193,7 @@ class FilterAdmin {
   }
 
   public getFilter(name: string) {
-    var results = Analytics.Management.Filters.list(this.Settings.AccountId);
+    var results = Analytics.Management.Filters.list(this.settings.AccountId);
 
     if (results && !results.error) {
 
@@ -191,7 +212,7 @@ class FilterAdmin {
 
     var matches = [];
 
-    var results = Analytics.Management.Filters.list(this.Settings.AccountId);
+    var results = Analytics.Management.Filters.list(this.settings.AccountId);
 
     if (results && !results.error) {
 
