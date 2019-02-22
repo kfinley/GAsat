@@ -1,6 +1,6 @@
 // https://developers.google.com/analytics/devguides/config/mgmt/v3/mgmtReference/management/filters
 class FilterAdmin {
-  
+
   public settings: Settings;
 
   constructor(settings: Settings) {
@@ -79,6 +79,20 @@ class FilterAdmin {
         kind: "analytics#filterExpression"
       },
       type: "EXCLUDE",
+      kind: "analytics#filter"
+    };
+
+    return this.createFilter(filter);
+  }
+
+  public createLowercaseFilter(name: string, field: string) {
+    var filter = {
+      name: name,
+      accountId: this.settings.AccountId,
+      lowercaseDetails: {
+        field: field,
+      },
+      type: "LOWERCASE",
       kind: "analytics#filter"
     };
 

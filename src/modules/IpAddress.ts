@@ -16,7 +16,7 @@ class IpAddress {
 
         // Loop through Sheet
         for (var i = 2; i <= numRows; i++) {
-            ipList.push(ipAddresses.getRange(i, 1).getValue());
+            ipList.push(ipAddresses.getRange(i, 1).getValue().toString().replace(".", "\\."));
         }
 
         this.filters.createFiltersForList(ipList, "Internal IP Addresses", this.filters.createIpAddressExcludeFilter);

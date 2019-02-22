@@ -18,6 +18,10 @@ function onOpen() {
   validHostnameFilterMenu
     .addItem("Create Filter", "createValidHostnameFilter");
 
+  var lowercaseCampaigns = ui.createMenu("Lowercase Campaigns");
+  lowercaseCampaigns
+    .addItem("Create Filters", "createLowercaseCampaignsFilter");
+
   var menu = ui.createMenu("Google Analytics");
 
   menu
@@ -26,6 +30,7 @@ function onOpen() {
     .addSubMenu(validHostnameFilterMenu)
     .addSubMenu(internalIpFiltersMenu)
     .addSubMenu(spamFiltersMenu)
+    .addSubMenu(lowercaseCampaigns)
     .addSubMenu(hubSpotFiltersMenu)
     .addToUi();
 }
@@ -78,5 +83,10 @@ function createValidHostnameFilter() {
   var validHostname = new ValidHostname();
   validHostname.filters = new FilterAdmin(getSettings());
   validHostname.createFilter();
+}
 
+function createLowercaseCampaignsFilter() {
+  var lowercaseCampaigns = new LowercaseCampaigns();
+  lowercaseCampaigns.filters = new FilterAdmin(getSettings());
+  lowercaseCampaigns.createFilters();
 }
