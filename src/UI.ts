@@ -18,10 +18,14 @@ function onOpen() {
   validHostnameFilterMenu
     .addItem("Create Filter", "createValidHostnameFilter");
 
-  var lowercaseCampaigns = ui.createMenu("Lowercase Campaigns");
-  lowercaseCampaigns
+  var lowercaseCampaignsMenu = ui.createMenu("Lowercase Campaigns");
+  lowercaseCampaignsMenu
     .addItem("Create Filters", "createLowercaseCampaignsFilter");
 
+    var lowercaseUrlsFilterMenu = ui.createMenu("Lowercase URLs");
+    lowercaseUrlsFilterMenu
+      .addItem("Create Filters", "createLowercaseUrlsFilter");
+      
   var menu = ui.createMenu("Google Analytics");
 
   menu
@@ -30,7 +34,8 @@ function onOpen() {
     .addSubMenu(validHostnameFilterMenu)
     .addSubMenu(internalIpFiltersMenu)
     .addSubMenu(spamFiltersMenu)
-    .addSubMenu(lowercaseCampaigns)
+    .addSubMenu(lowercaseCampaignsMenu)
+    .addSubMenu(lowercaseUrlsFilterMenu)
     .addSubMenu(hubSpotFiltersMenu)
     .addToUi();
 }
@@ -50,6 +55,7 @@ function getSettings() {
   settings.PropertyId = settingsSheet.getRange(3, 2).getValue().toString();
   settings.ViewId = settingsSheet.getRange(4, 2).getValue().toString();
   settings.AdditionalSpammers = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Additional Spammers");
+  settings.InternalIpsAddresses = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Internal IPs");
 
   return settings;
 }
@@ -89,4 +95,10 @@ function createLowercaseCampaignsFilter() {
   var lowercaseCampaigns = new LowercaseCampaigns();
   lowercaseCampaigns.filters = new FilterAdmin(getSettings());
   lowercaseCampaigns.createFilters();
+}
+
+function createLowercaseUrlsFilter() {
+  var lowercaseUrls = new LowercaseUrls();
+  lowercaseUrls.filters = new FilterAdmin(getSettings());
+  lowercaseUrls.createFilter();
 }

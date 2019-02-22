@@ -4,4 +4,5 @@ class Settings {
     PropertyId: string;
     ViewId: string;
     AdditionalSpammers: GoogleAppsScript.Spreadsheet.Sheet;
+    InternalIpsAddresses: GoogleAppsScript.Spreadsheet.Sheet;
 }

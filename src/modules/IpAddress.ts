@@ -9,8 +9,7 @@ class IpAddress {
 
         var ipList = [];
 
-        var ipAddresses = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Internal IPs");
-
+        var ipAddresses = this.filters.settings.InternalIpsAddresses;
         // Get the data from the sheet
         var numRows = ipAddresses.getDataRange().getNumRows();
 
