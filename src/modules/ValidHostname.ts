@@ -1,16 +1,16 @@
 class ValidHostname {
 
-    public filters: FilterAdmin;
+    public admin: GoogleAnalyticsAdmin;
 
     public createFilter() {
-        toast("site: " + this.filters.settings.Site, "Valid Hostname Filters");
+        toast("site: " + this.admin.settings.Site, "Valid Hostname Filters");
 
-        this.filters.deleteFilters("Valid Hostname");
+        this.admin.deleteFilters("Valid Hostname");
 
-        var filter = this.filters.getFilter("Valid Hostname");
+        var filter = this.admin.getFilter("Valid Hostname");
 
         if (filter == null) {
-            filter = this.filters.createValidHostnameFilter("Valid Hostname");
+            filter = this.admin.createValidHostnameFilter("Valid Hostname");
         }
 
         toast("", "Finished!");

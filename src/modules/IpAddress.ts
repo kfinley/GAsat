@@ -1,15 +1,15 @@
 class IpAddress {
 
-    public filters: FilterAdmin;
+    public admin: GoogleAnalyticsAdmin;
 
     public createFilters() {
 
         // Delete any old filters
-        this.filters.deleteFilters("Internal IP Addresses");
+        this.admin.deleteFilters("Internal IP Addresses");
 
         var ipList = [];
 
-        var ipAddresses = this.filters.settings.InternalIpsAddresses;
+        var ipAddresses = this.admin.settings.InternalIpsAddresses;
         // Get the data from the sheet
         var numRows = ipAddresses.getDataRange().getNumRows();
 
@@ -18,7 +18,7 @@ class IpAddress {
             ipList.push(ipAddresses.getRange(i, 1).getValue().toString().replace(".", "\\."));
         }
 
-        this.filters.createFiltersForList(ipList, "Internal IP Addresses", this.filters.createIpAddressExcludeFilter);
+        this.admin.createFiltersForList(ipList, "Internal IP Addresses", this.admin.createIpAddressExcludeFilter);
 
         toast("Finished!", "Internal IP Address Filters");
     } catch(ex) {

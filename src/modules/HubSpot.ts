@@ -1,26 +1,36 @@
 class Hubspot {
 
-  public filters: FilterAdmin;
+  public admin: GoogleAnalyticsAdmin;
 
   public createFilters() {
-    toast("site: " + this.filters.settings.Site, "Creating HubSpot Filters");
+    toast("site: " + this.admin.settings.Site, "Creating HubSpot Filters & Settings");
 
-    var filter = this.filters.getFilter("HubSpot ISP Filter");
+    var filter = this.admin.getFilter("HubSpot ISP Filter");
 
     if (filter == null) {
-      filter = this.filters.createIspOrganizationExcludeFilter("HubSpot ISP Filter", "HubSpot");
+      filter = this.admin.createIspOrganizationExcludeFilter("HubSpot ISP Filter", "HubSpot");
     } 
 
-    filter = this.filters.getFilter("HubSpot Sources Filter");
+    filter = this.admin.getFilter("HubSpot Sources Filter");
 
     if (filter == null) {
       var sources = [];
       sources.push("app\\.hubspot\\.com");
       sources.push("\\.sandbox\\.hs-sites\\.com");
 
-      this.filters.createFiltersForList(sources, "Hubspot Sources Filter", this.filters.createCampaignSourceExcludeFilter);
+      this.admin.createFiltersForList(sources, "Hubspot Sources Filter", this.admin.createCampaignSourceExcludeFilter);
     }
 
+          /*
+      TODO: Add these
+      Facebook: "fbclid"
+      ??: "page,submissionGuid"
+      */
+
+     var hubSpotParams = "_hsenc,_hsmi,hss_channel,hsa_acc,hs_preview,hsDebug,hsCtaTracking,__hstc,hsa_kw,__hssc,hsa_ver,__hsfp,hsa_ad,hsa_net,hsa_mt,hsa_cam,hsa_src,hsa_tgt,hsa_grp";
+
+    this.admin.addExcludeURLQueryParameters(hubSpotParams);
+    
     toast("", "Finished!");
   }
 }

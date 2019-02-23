@@ -40,5 +40,6 @@ Manage Google Analytics from Google Sheets using App Scripts. This is a work in 
 - Internal IP Addresses Filter
 - Referral Spam Filter - (Using the [Matomo blacklist](https://github.com/matomo-org/referrer-spam-blacklist) and an additional customer list)
 - HubSpot by ISP Organization Filter 
-- Hubspot app and sandbox domains Filter
+- HubSpot app and sandbox domains Filter
+- Add HubSpot tracking params to Exclude URL Query Parameters View Settings
 

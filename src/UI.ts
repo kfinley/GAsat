@@ -63,42 +63,42 @@ function getSettings() {
 function referrerSpamFiltersCreateFilters() {
 
   var spam = new ReferrerSpam();
-  spam.filters = new FilterAdmin(getSettings());
+  spam.admin = new GoogleAnalyticsAdmin(getSettings());
   spam.createFilters();
 }
 
 function referrerSpamFiltersDeleteFilters() {
   var spam = new ReferrerSpam();
-  spam.filters = new FilterAdmin(getSettings());
+  spam.admin = new GoogleAnalyticsAdmin(getSettings());
   spam.deleteFilters();
 }
 
 function hubSpotFiltersCreateFilters() {
   var hubSpot = new Hubspot();
-  hubSpot.filters = new FilterAdmin(getSettings());
+  hubSpot.admin = new GoogleAnalyticsAdmin(getSettings());
   hubSpot.createFilters();
 }
 
 function createInternalIpAddressFilters() {
   var ips = new IpAddress();
-  ips.filters = new FilterAdmin(getSettings());
+  ips.admin = new GoogleAnalyticsAdmin(getSettings());
   ips.createFilters();
 }
 
 function createValidHostnameFilter() {
   var validHostname = new ValidHostname();
-  validHostname.filters = new FilterAdmin(getSettings());
+  validHostname.admin = new GoogleAnalyticsAdmin(getSettings());
   validHostname.createFilter();
 }
 
 function createLowercaseCampaignsFilter() {
   var lowercaseCampaigns = new LowercaseCampaigns();
-  lowercaseCampaigns.filters = new FilterAdmin(getSettings());
+  lowercaseCampaigns.admin = new GoogleAnalyticsAdmin(getSettings());
   lowercaseCampaigns.createFilters();
 }
 
 function createLowercaseUrlsFilter() {
   var lowercaseUrls = new LowercaseUrls();
-  lowercaseUrls.filters = new FilterAdmin(getSettings());
+  lowercaseUrls.admin = new GoogleAnalyticsAdmin(getSettings());
   lowercaseUrls.createFilter();
 }

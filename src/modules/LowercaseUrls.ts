@@ -1,14 +1,16 @@
 class LowercaseUrls {
 
-    public filters: FilterAdmin;
+    public admin: GoogleAnalyticsAdmin;
 
     public createFilter() {
-        toast("site: " + this.filters.settings.Site, "Creating Lowercase URLs Filters");
+        toast("site: " + this.admin.settings.Site, "Creating Lowercase URLs Filters");
 
-        var filter = this.filters.getFilter("Lowercase URLs");
+        var filter = this.admin.getFilter("Lowercase URLs");
 
         if (filter == null) {
-            filter = this.filters.createLowercaseFilter("Lowercase URLs", "PAGE_REQUEST_URI");
+            filter = this.admin.createLowercaseFilter("Lowercase URLs", "PAGE_REQUEST_URI");
         }
+
+        toast("", "Finished!");
     }
 }

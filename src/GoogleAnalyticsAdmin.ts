@@ -1,6 +1,6 @@
 // https://developers.google.com/analytics/devguides/config/mgmt/v3/mgmtReference/management/filters
-class FilterAdmin {
-
+class GoogleAnalyticsAdmin {
+  
   public settings: Settings;
 
   constructor(settings: Settings) {
@@ -239,6 +239,28 @@ class FilterAdmin {
       throw results.error;
     }
     return matches;
+  }
+
+  addExcludeURLQueryParameters(paramsToAdd: string): any {
+    var view = Analytics.Management.Profiles.get(this.settings.AccountId, this.settings.PropertyId, this.settings.ViewId);
+    
+    var params = <string>(view.excludeQueryParameters === undefined ? "" : view.excludeQueryParameters);
+
+    var newParams = paramsToAdd.split(",");
+
+    newParams.forEach(param => {
+      
+      if (params.indexOf(param) == -1) {
+        params = params + (params == "" ?  "" : ",") + param;
+      }
+    });
+
+    view.excludeQueryParameters = params;
+    
+    Analytics.Management.Profiles.update(view, this.settings.AccountId, this.settings.PropertyId, this.settings.ViewId);
+
+    toast(params, "Added Exclude Query Params");
+    
   }
 
 }
