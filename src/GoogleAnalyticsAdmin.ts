@@ -259,7 +259,7 @@ class GoogleAnalyticsAdmin {
     
     Analytics.Management.Profiles.update(view, this.settings.AccountId, this.settings.PropertyId, this.settings.ViewId);
 
-    toast(params, "Added Exclude Query Params");
+    toast("", "Added Exclude Query Params");
     
   }
 

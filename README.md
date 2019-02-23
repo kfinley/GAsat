@@ -42,4 +42,5 @@ Manage Google Analytics from Google Sheets using App Scripts. This is a work in 
 - HubSpot by ISP Organization Filter 
 - HubSpot app and sandbox domains Filter
 - Add HubSpot tracking params to Exclude URL Query Parameters View Settings
+- Add Facebook fbclid param to Exclude URL Query Parameters View Settings
 

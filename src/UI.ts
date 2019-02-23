@@ -1,9 +1,6 @@
 function onOpen() {
 
   var ui = SpreadsheetApp.getUi();
-  var hubSpotFiltersMenu = ui.createMenu("HubSpot");
-  hubSpotFiltersMenu
-    .addItem("Create Filters", "hubSpotFiltersCreateFilters");
 
   var spamFiltersMenu = ui.createMenu("Referrer Spam Filters");
   spamFiltersMenu
@@ -22,10 +19,18 @@ function onOpen() {
   lowercaseCampaignsMenu
     .addItem("Create Filters", "createLowercaseCampaignsFilter");
 
-    var lowercaseUrlsFilterMenu = ui.createMenu("Lowercase URLs");
-    lowercaseUrlsFilterMenu
-      .addItem("Create Filters", "createLowercaseUrlsFilter");
-      
+  var lowercaseUrlsFilterMenu = ui.createMenu("Lowercase URLs");
+  lowercaseUrlsFilterMenu
+    .addItem("Create Filters", "createLowercaseUrlsFilter");
+
+  var hubSpotMenu = ui.createMenu("HubSpot");
+  hubSpotMenu
+    .addItem("Create", "hubSpotCreate");
+
+  var facebookMenu = ui.createMenu("Facebook");
+  facebookMenu
+    .addItem("Create", "facebookCreate");
+
   var menu = ui.createMenu("Google Analytics");
 
   menu
@@ -36,7 +41,8 @@ function onOpen() {
     .addSubMenu(spamFiltersMenu)
     .addSubMenu(lowercaseCampaignsMenu)
     .addSubMenu(lowercaseUrlsFilterMenu)
-    .addSubMenu(hubSpotFiltersMenu)
+    .addSubMenu(hubSpotMenu)
+    .addSubMenu(facebookMenu)
     .addToUi();
 }
 
@@ -73,10 +79,10 @@ function referrerSpamFiltersDeleteFilters() {
   spam.deleteFilters();
 }
 
-function hubSpotFiltersCreateFilters() {
+function hubSpotCreate() {
   var hubSpot = new Hubspot();
   hubSpot.admin = new GoogleAnalyticsAdmin(getSettings());
-  hubSpot.createFilters();
+  hubSpot.create();
 }
 
 function createInternalIpAddressFilters() {
@@ -101,4 +107,10 @@ function createLowercaseUrlsFilter() {
   var lowercaseUrls = new LowercaseUrls();
   lowercaseUrls.admin = new GoogleAnalyticsAdmin(getSettings());
   lowercaseUrls.createFilter();
+}
+
+function facebookCreate() {
+  var facebook = new Facebook();
+  facebook.admin = new GoogleAnalyticsAdmin(getSettings());
+  facebook.create();
 }
