@@ -17,6 +17,10 @@ function setupSheet() {
     if (internalIpAddresses != null)
         internalIpAddresses.getRange(1, 1).setValue("Add IP addresses to be filtered here (one per row in column A)").setFontWeight("bold");
 
+    var queryParams = createSheet("Query Params");
+    if (queryParams != null)
+        queryParams.getRange(1, 1).setValue("Add Exclude URL Query Params here(one per row in column A)").setFontWeight("bold");
+
     toast("Sheets created", "Setup Complete");
 
 }

@@ -2,10 +2,9 @@ function onOpen() {
 
   var ui = SpreadsheetApp.getUi();
 
-  var spamFiltersMenu = ui.createMenu("Referrer Spam Filters");
-  spamFiltersMenu
-    .addItem("Create Filters", "referrerSpamFiltersCreateFilters")
-    .addItem("Delete Filters", "referrerSpamFiltersDeleteFilters")
+  var queryParamsMenu = ui.createMenu("Query Params");
+  queryParamsMenu
+    .addItem("Create", "queryParamsCreate");
 
   var internalIpFiltersMenu = ui.createMenu("Internal IP Filters");
   internalIpFiltersMenu
@@ -23,6 +22,11 @@ function onOpen() {
   lowercaseUrlsFilterMenu
     .addItem("Create Filters", "createLowercaseUrlsFilter");
 
+  var spamFiltersMenu = ui.createMenu("Referrer Spam Filters");
+  spamFiltersMenu
+    .addItem("Create Filters", "referrerSpamFiltersCreateFilters")
+    .addItem("Delete Filters", "referrerSpamFiltersDeleteFilters")
+
   var hubSpotMenu = ui.createMenu("HubSpot");
   hubSpotMenu
     .addItem("Create", "hubSpotCreate");
@@ -38,6 +42,7 @@ function onOpen() {
     .addSeparator()
     .addSubMenu(validHostnameFilterMenu)
     .addSubMenu(internalIpFiltersMenu)
+    .addSubMenu(queryParamsMenu)
     .addSubMenu(spamFiltersMenu)
     .addSubMenu(lowercaseCampaignsMenu)
     .addSubMenu(lowercaseUrlsFilterMenu)
@@ -46,22 +51,39 @@ function onOpen() {
     .addToUi();
 }
 
+var isToasting = false;
+
 function toast(message: string, title: string) {
-  if (title != undefined)
-    SpreadsheetApp.getActive().toast(message, title);
-  else
-    SpreadsheetApp.getActive().toast(message);
+
+  if (isToasting == true) {
+    setTimeout(() => {
+      toast(message, title);
+    }, (500));
+  } else {
+
+    isToasting = true;
+    if (title != undefined)
+      SpreadsheetApp.getActive().toast(message, title);
+    else
+      SpreadsheetApp.getActive().toast(message);
+
+    // quick sleep to give time to toast.
+    Utilities.sleep(500);
+    isToasting = false;
+
+  }
 }
 
 function getSettings() {
   var settingsSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Settings");
   var settings = new Settings();
-  settings.Site = settingsSheet.getRange(1, 2).getValue().toString();
-  settings.AccountId = settingsSheet.getRange(2, 2).getValue().toString();
-  settings.PropertyId = settingsSheet.getRange(3, 2).getValue().toString();
-  settings.ViewId = settingsSheet.getRange(4, 2).getValue().toString();
-  settings.AdditionalSpammers = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Additional Spammers");
-  settings.InternalIpsAddresses = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Internal IPs");
+  settings.site = settingsSheet.getRange(1, 2).getValue().toString();
+  settings.accountId = settingsSheet.getRange(2, 2).getValue().toString();
+  settings.propertyId = settingsSheet.getRange(3, 2).getValue().toString();
+  settings.profileId = settingsSheet.getRange(4, 2).getValue().toString();
+  settings.additionalSpammers = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Additional Spammers");
+  settings.internalIpsAddresses = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Internal IPs");
+  settings.queryParams = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Query Params");
 
   return settings;
 }
@@ -113,4 +135,10 @@ function facebookCreate() {
   var facebook = new Facebook();
   facebook.admin = new GoogleAnalyticsAdmin(getSettings());
   facebook.create();
+}
+
+function queryParamsCreate() {
+  var queryParams = new QueryParams();
+  queryParams.admin = new GoogleAnalyticsAdmin(getSettings());
+  queryParams.create();
 }

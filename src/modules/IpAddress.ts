@@ -9,13 +9,13 @@ class IpAddress {
 
         var ipList = [];
 
-        var ipAddresses = this.admin.settings.InternalIpsAddresses;
+        var ipAddresses = this.admin.settings.internalIpsAddresses;
         // Get the data from the sheet
         var numRows = ipAddresses.getDataRange().getNumRows();
 
         // Loop through Sheet
         for (var i = 2; i <= numRows; i++) {
-            ipList.push(ipAddresses.getRange(i, 1).getValue().toString().replace(".", "\\."));
+            ipList.push(ipAddresses.getRange(i, 1).getValue().toString().split(".").join("\\."));
         }
 
         this.admin.createFiltersForList(ipList, "Internal IP Addresses", this.admin.createIpAddressExcludeFilter);

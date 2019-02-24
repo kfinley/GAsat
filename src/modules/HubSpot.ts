@@ -3,7 +3,7 @@ class Hubspot {
   public admin: GoogleAnalyticsAdmin;
 
   public create() {
-    toast("site: " + this.admin.settings.Site, "Creating HubSpot Filters & Settings");
+    toast("site: " + this.admin.settings.site, "Creating HubSpot Filters & Settings");
 
     var filter = this.admin.getFilter("HubSpot ISP Filter");
 
@@ -29,9 +29,6 @@ class Hubspot {
     var hubSpotParams = "_hsenc,_hsmi,hss_channel,hsa_acc,hs_preview,hsDebug,hsCtaTracking,__hstc,hsa_kw,__hssc,hsa_ver,__hsfp,hsa_ad,hsa_net,hsa_mt,hsa_cam,hsa_src,hsa_tgt,hsa_grp";
 
     this.admin.addExcludeURLQueryParameters(hubSpotParams);
-
-    // quick sleep so toasts don't overlap
-    Utilities.sleep(1000);
 
     toast("", "Finished!");
   }

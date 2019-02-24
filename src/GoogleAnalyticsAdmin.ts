@@ -9,11 +9,11 @@ class GoogleAnalyticsAdmin {
 
   public createValidHostnameFilter(name: string) {
 
-    var site = this.settings.Site.toLowerCase().replace(".", "\\.");
+    var site = this.settings.site.toLowerCase().replace(".", "\\.");
 
     var filter = {
       name: name,
-      accountId: this.settings.AccountId,
+      accountId: this.settings.accountId,
       includeDetails: {
         field: "PAGE_HOSTNAME",
         expressionValue: site,
@@ -32,7 +32,7 @@ class GoogleAnalyticsAdmin {
 
     var filter = {
       name: name,
-      accountId: this.settings.AccountId,
+      accountId: this.settings.accountId,
       excludeDetails: {
         field: "CAMPAIGN_SOURCE",
         expressionValue: expressionValue,
@@ -51,7 +51,7 @@ class GoogleAnalyticsAdmin {
 
     var filter = {
       name: name,
-      accountId: this.settings.AccountId,
+      accountId: this.settings.accountId,
       excludeDetails: {
         field: "GEO_ORGANIZATION",
         expressionValue: expressionValue,
@@ -70,7 +70,7 @@ class GoogleAnalyticsAdmin {
 
     var filter = {
       name: name,
-      accountId: this.settings.AccountId,
+      accountId: this.settings.accountId,
       excludeDetails: {
         field: "GEO_IP_ADDRESS",
         expressionValue: expressionValue,
@@ -88,7 +88,7 @@ class GoogleAnalyticsAdmin {
   public createLowercaseFilter(name: string, field: string) {
     var filter = {
       name: name,
-      accountId: this.settings.AccountId,
+      accountId: this.settings.accountId,
       lowercaseDetails: {
         field: field,
       },
@@ -102,13 +102,13 @@ class GoogleAnalyticsAdmin {
   public createFilter(filter: any) {
 
     try {
-      filter = Analytics.Management.Filters.insert(filter, this.settings.AccountId);
+      filter = Analytics.Management.Filters.insert(filter, this.settings.accountId);
 
       var link = Analytics.Management.ProfileFilterLinks.insert({
         filterRef: {
           id: filter.id
         }
-      }, this.settings.AccountId, this.settings.PropertyId, this.settings.ViewId);
+      }, this.settings.accountId, this.settings.propertyId, this.settings.profileId);
 
       toast(filter.name, "Created Filter");
 
@@ -131,7 +131,7 @@ class GoogleAnalyticsAdmin {
 
         var filter = existingFilters[i]
 
-        Analytics.Management.Filters.remove(this.settings.AccountId, filter.id);
+        Analytics.Management.Filters.remove(this.settings.accountId, filter.id);
 
         toast(filter.name, "Removed Filter");
 
@@ -207,7 +207,7 @@ class GoogleAnalyticsAdmin {
   }
 
   public getFilter(name: string) {
-    var results = Analytics.Management.Filters.list(this.settings.AccountId);
+    var results = Analytics.Management.Filters.list(this.settings.accountId);
 
     if (results && !results.error) {
 
@@ -226,7 +226,7 @@ class GoogleAnalyticsAdmin {
 
     var matches = [];
 
-    var results = Analytics.Management.Filters.list(this.settings.AccountId);
+    var results = Analytics.Management.Filters.list(this.settings.accountId);
 
     if (results && !results.error) {
 
@@ -242,7 +242,7 @@ class GoogleAnalyticsAdmin {
   }
 
   addExcludeURLQueryParameters(paramsToAdd: string): any {
-    var view = Analytics.Management.Profiles.get(this.settings.AccountId, this.settings.PropertyId, this.settings.ViewId);
+    var view = Analytics.Management.Profiles.get(this.settings.accountId, this.settings.propertyId, this.settings.profileId);
     
     var params = <string>(view.excludeQueryParameters === undefined ? "" : view.excludeQueryParameters);
 
@@ -257,7 +257,7 @@ class GoogleAnalyticsAdmin {
 
     view.excludeQueryParameters = params;
     
-    Analytics.Management.Profiles.update(view, this.settings.AccountId, this.settings.PropertyId, this.settings.ViewId);
+    Analytics.Management.Profiles.update(view, this.settings.accountId, this.settings.propertyId, this.settings.profileId);
 
     toast("", "Added Exclude Query Params");
     

@@ -3,7 +3,7 @@ class ValidHostname {
     public admin: GoogleAnalyticsAdmin;
 
     public createFilter() {
-        toast("site: " + this.admin.settings.Site, "Valid Hostname Filters");
+        toast("site: " + this.admin.settings.site, "Valid Hostname Filters");
 
         this.admin.deleteFilters("Valid Hostname");
 

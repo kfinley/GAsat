@@ -3,7 +3,7 @@ class LowercaseUrls {
     public admin: GoogleAnalyticsAdmin;
 
     public createFilter() {
-        toast("site: " + this.admin.settings.Site, "Creating Lowercase URLs Filters");
+        toast("site: " + this.admin.settings.site, "Creating Lowercase URLs Filters");
 
         var filter = this.admin.getFilter("Lowercase URLs");
 

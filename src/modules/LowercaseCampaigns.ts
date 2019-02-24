@@ -3,7 +3,7 @@ class LowercaseCampaigns {
     public admin: GoogleAnalyticsAdmin;
 
     public createFilters() {
-        toast("site: " + this.admin.settings.Site, "Creating Lowercase Campaigns Filters");
+        toast("site: " + this.admin.settings.site, "Creating Lowercase Campaigns Filters");
 
         var filter = this.admin.getFilter("Lowercase Campaign Name");
 

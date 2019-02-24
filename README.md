@@ -38,9 +38,10 @@ Manage Google Analytics from Google Sheets using App Scripts. This is a work in 
 - Lowercase URI Filter
 - Lowercase Filter for ‘Campaign Name’, ‘Campaign Source’, ‘Campaign Medium’, ‘Campaign Term’ and ‘Campaign Content’
 - Internal IP Addresses Filter
-- Referral Spam Filter - (Using the [Matomo blacklist](https://github.com/matomo-org/referrer-spam-blacklist) and an additional customer list)
+- Referral Spam Filter - (Using the [Matomo blacklist](https://github.com/matomo-org/referrer-spam-blacklist) and an additional custom list)
 - HubSpot by ISP Organization Filter 
 - HubSpot app and sandbox domains Filter
 - Add HubSpot tracking params to Exclude URL Query Parameters View Settings
 - Add Facebook fbclid param to Exclude URL Query Parameters View Settings
+- Add additional Exclude URL Query Parameters from sheet
 
