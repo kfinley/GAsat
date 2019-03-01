@@ -1,6 +1,6 @@
 // https://developers.google.com/analytics/devguides/config/mgmt/v3/mgmtReference/management/filters
 class GoogleAnalyticsAdmin {
-  
+
   public settings: Settings;
 
   constructor(settings: Settings) {
@@ -93,6 +93,45 @@ class GoogleAnalyticsAdmin {
         field: field,
       },
       type: "LOWERCASE",
+      kind: "analytics#filter"
+    };
+
+    return this.createFilter(filter);
+  }
+
+  public createCustomExcludeFilter(name: string, field: string, expressionValue: string) {
+    var filter = {
+      name: name,
+      accountId: this.settings.accountId,
+      excludeDetails: {
+        field: field,
+        expressionValue: expressionValue
+      },
+      type: "EXCLUDE",
+      kind: "analytics#filter"
+    };
+
+    return this.createFilter(filter);
+  }
+
+  public createAdvancedFilter(name: string, fieldA: string, fieldARequired: boolean, 
+                            fieldB: string, fieldBRequired: boolean,
+                            outputToField: string, caseSensitive: boolean) {
+
+    // CUSTOM_FIELD_1
+
+    var filter = {
+      name: name,
+      accountId: this.settings.accountId,
+      advancedDetails: {
+        extractA: fieldA,
+        fieldARequired: fieldARequired,
+        extractB: fieldB,
+        fieldBRequired: fieldBRequired,
+        outputToField: outputToField,
+        caseSensitive: caseSensitive
+      },
+      type: "EXCLUDE",
       kind: "analytics#filter"
     };
 
@@ -243,24 +282,24 @@ class GoogleAnalyticsAdmin {
 
   addExcludeURLQueryParameters(paramsToAdd: string): any {
     var view = Analytics.Management.Profiles.get(this.settings.accountId, this.settings.propertyId, this.settings.profileId);
-    
+
     var params = <string>(view.excludeQueryParameters === undefined ? "" : view.excludeQueryParameters);
 
     var newParams = paramsToAdd.split(",");
 
     newParams.forEach(param => {
-      
+
       if (params.indexOf(param) == -1) {
-        params = params + (params == "" ?  "" : ",") + param;
+        params = params + (params == "" ? "" : ",") + param;
       }
     });
 
     view.excludeQueryParameters = params;
-    
+
     Analytics.Management.Profiles.update(view, this.settings.accountId, this.settings.propertyId, this.settings.profileId);
 
     toast("", "Added Exclude Query Params");
-    
+
   }
 
 }

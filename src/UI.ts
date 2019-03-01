@@ -35,6 +35,10 @@ function onOpen() {
   facebookMenu
     .addItem("Create", "facebookCreate");
 
+  var amazonAwsMenu = ui.createMenu("Amazon Aws");
+  amazonAwsMenu
+    .addItem("Create", "amazonAwsCreate");
+
   var menu = ui.createMenu("Google Analytics");
 
   menu
@@ -48,6 +52,7 @@ function onOpen() {
     .addSubMenu(lowercaseUrlsFilterMenu)
     .addSubMenu(hubSpotMenu)
     .addSubMenu(facebookMenu)
+    .addSubMenu(amazonAwsMenu)
     .addToUi();
 }
 
@@ -141,4 +146,10 @@ function queryParamsCreate() {
   var queryParams = new QueryParams();
   queryParams.admin = new GoogleAnalyticsAdmin(getSettings());
   queryParams.create();
+}
+
+function amazonAwsCreate() {
+  var amazonAwsCreate = new AmazonAws();
+  amazonAwsCreate.admin = new GoogleAnalyticsAdmin(getSettings());
+  amazonAwsCreate.create();
 }

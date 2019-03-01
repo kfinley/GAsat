@@ -44,4 +44,5 @@ Manage Google Analytics from Google Sheets using App Scripts. This is a work in 
 - Add HubSpot tracking params to Exclude URL Query Parameters View Settings
 - Add Facebook fbclid param to Exclude URL Query Parameters View Settings
 - Add additional Exclude URL Query Parameters from sheet
+- Added amazonaws.com ISP Domain filter
 
