@@ -19,11 +19,11 @@ Manage Google Analytics from Google Sheets using App Scripts. This is a work in 
     ```
     {"scriptId":"xxxxxx"}
     ```
-    Locate the Script ID in Sheets Script Editor `File -> Project properties`
+    Locate the Script ID in Sheets Script Editor (`Tools -> Script etitor`) under the File menu (`File -> Project properties`)
 
-5. Run `clasp login` from the src folder
+5. Run `clasp login` from the `src` folder
 
-6. Run `clasp push` from the src folder to deploy code to Sheets
+6. Run `clasp push` from the `src` folder to deploy code to Sheets
 
 7. Refresh (or open) the Sheet created in step 2
 
