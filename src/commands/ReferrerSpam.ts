@@ -4,19 +4,19 @@ class ReferrerSpam {
 
   public deleteFilters() {
     // Delete any old filters
-    toast("Site: " + this.admin.settings.site, "Deleting Existing Filters");
+    toast(`Site: ${this.admin.settings.site}`, "Deleting Existing Filters");
     this.admin.deleteFilters("Referrer Spam");
-    toast("Site: " + this.admin.settings.site, "Finished Deleting Existing Filters");
+    toast(`Site: ${this.admin.settings.site}`, "Finished Deleting Existing Filters");
   }
 
   public createFilters() {
     try {
 
       // Delete any old filters
-      toast("Site: " + this.admin.settings.site, "Deleting Existing Spam Filters");
+      toast(`Site: ${this.admin.settings.site}`, "Deleting Existing Spam Filters");
       this.admin.deleteFilters("Referrer Spam");
 
-      toast("Site: " + this.admin.settings.site, "Creating Spam Filters");
+      toast(`Site: ${this.admin.settings.site}`, "Creating Spam Filters");
 
       // Open the Referrer Spam List from github
       var response = UrlFetchApp.fetch("https://raw.githubusercontent.com/matomo-org/referrer-spam-blacklist/master/spammers.txt");

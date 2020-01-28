@@ -3,7 +3,7 @@ class Facebook {
     public admin: GoogleAnalyticsAdmin;
 
     public create() {
-        toast("site: " + this.admin.settings.site, "Creating Facebook Settings");
+        toast("site: " + this.admin.settings.site, "Adding Exclude Facebook URL Query Parameters");
 
         var params = "fbclid";
 
