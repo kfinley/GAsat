@@ -1,37 +1,45 @@
-# Google Analytics Admin Tool
+# GAsat: Google Analytics Sheets Admin Tool
 
 [![TypeScript](https://badges.frapsoft.com/typescript/code/typescript.svg)](https://github.com/ellerbrock/typescript-badges/)
 [![clasp](https://img.shields.io/badge/built%20with-clasp-4285f4.svg)](https://github.com/google/clasp)
 
 
-Manage Google Analytics from Google Sheets using App Scripts. This is a work in progress. The current focus is on adding standard Best Practices filters.
+Manage Google Analytics from Google Sheets using App Scripts written in [TypeScript](https://github.com/Microsoft/TypeScript) and deployed with [Clasp](https://github.com/google/clasp). 
 
-## How to use
-1. Install [Clasp](https://github.com/google/clasp)
+GAsat is a collection of scripts built over the years for managing Google Analytics. It is built as a stand alone Google Sheets plugin that can be deployed as needed.
 
-2. Create a Google Sheet to deploy script to
+The current focus of the project is to add common filters and configurations that follow latest best practices. Pull requests are welcome just be nice and add an issue for any new work.
 
-3. [Enable](https://script.google.com/home/usersettings) Apps Script API 
+## Project Setup
+1. Clone repo
 
-4. Add `.clasp.json` file to the `src` folder
+2. Install [Clasp](https://github.com/google/clasp)
+
+3. Create a Google Sheet for the project. Name it anything you'd like.
+
+4. [Enable](https://script.google.com/home/usersettings) Apps Script API 
+
+5. Add a `.clasp.json` file to the `src` folder
 
     File format:
     ```
     {"scriptId":"xxxxxx"}
     ```
-    Locate the Script ID in Sheets Script Editor (`Tools -> Script etitor`) under the File menu (`File -> Project properties`)
+    Locate the Script ID in Sheets script editor (`Tools -> Script editor`) under the File menu (`File -> Project properties`)
 
-5. Run `clasp login` from the `src` folder
+6. Run `clasp login` from the `src` folder
 
-6. Run `clasp push` from the `src` folder to deploy code to Sheets
+7. Run `clasp push` from the `src` folder to deploy code to Sheets
 
-7. Refresh (or open) the Sheet created in step 2
+8. Refresh (or open) the Sheet created in step 2
 
-8. Run `Setup Sheets` from new Google Analytics menu that appears after Sheets loads
+9.  Run `Setup Sheets` from new Google Analytics menu that appears after Sheets loads
 
-9. Add target Google Analytics settings to the Settings sheet
+10. Add target Google Analytics settings to the Settings sheet
 
-10. Run commands from `Google Analytics` menu
+11. Run commands from `Google Analytics` menu
+
+12. Confirm settings in Google Analytics
 
 ## Curent Features
 - Valid hostname Filter
